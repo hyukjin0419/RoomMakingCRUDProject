@@ -28,11 +28,11 @@ public class LoginManager {
             if(menu == 0) {
                 System.out.println("프로그램 종료");
                 System.exit(0);
-            } else if(menu == 1){
-                loginCRUD.addMember();
-            } /*else if(menu == 2){
+            } /*else if(menu == 1){
 
-            } else if(menu == 3){
+            } */else if(menu == 2){
+                loginCRUD.addMember();
+            } /*else if(menu == 3){
 
             } else if(menu == 4){
 

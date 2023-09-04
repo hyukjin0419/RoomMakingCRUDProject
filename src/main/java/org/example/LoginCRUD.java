@@ -1,9 +1,6 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -25,26 +22,35 @@ public class LoginCRUD implements ICRUD{
     public Object add() {
         String id = null;
         String pw = null;
-        while(true) {
+        System.out.print("=> 회원가입할 ID를 입력하세요: ");
+        id = s.nextLine();
+
+        while(isDuplicated(id,list)) {
             System.out.print("=> 회원가입할 ID를 입력하세요: ");
             id = s.nextLine();
-            for (Login one : list) {
-                if (one.getId().equals(id)) {
-                    System.out.println("중복되는 ID입니다. 다른 ID를 입력해주세요.");
-                    continue;
-                }
-            }
-            System.out.print("=> 비밀번호를 입력하세요: ");
-            pw = s.nextLine();
-            if (id != null && pw != null)
-                break;
         }
+
+        System.out.print("=> 비밀번호를 입력하세요: ");
+        pw = s.nextLine();
         return new Login(id, pw);
+    }
+
+    public boolean isDuplicated(String id, ArrayList<Login> list){
+        boolean duplicated = false;
+        for (Login one : list) {
+            if (one.getId().equals(id)) {
+                System.out.println("중복되는 ID입니다. 다른 ID를 입력해주세요.");
+                duplicated = true;
+                break;
+            }
+        }
+        return duplicated;
     }
 
     public void addMember(){
         Login one = (Login) add();
         list.add(one);
+        saveFile();
         System.out.println("회원가입이 완료되었습니다.");
     }
 
@@ -77,9 +83,22 @@ public class LoginCRUD implements ICRUD{
                 String id = data[0];
                 String pw = data[1];
                 list.add(new Login(id, pw));
+                count++;
             }
             br.close();
             System.out.println("===>" + count + "명 member의 정보를 로드하였습니다.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void saveFile(){
+        try {
+            PrintWriter pr = new PrintWriter(new FileWriter(fname));
+            for(Login one : list) {
+                pr.write(one.toFileString() + "\n");
+            }
+            pr.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

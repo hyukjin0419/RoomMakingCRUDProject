@@ -28,4 +28,7 @@ public class Login {
     }
 
 
+    public String toFileString() {
+        return this.id + "|" + this.pw;
+    }
 }
