@@ -22,6 +22,8 @@ public class LoginCRUD implements ICRUD{
     public Object add() {
         String id = null;
         String pw = null;
+        String pwCheck = null;
+
         System.out.print("=> 회원가입할 ID를 입력하세요: ");
         id = s.nextLine();
 
@@ -32,7 +34,25 @@ public class LoginCRUD implements ICRUD{
 
         System.out.print("=> 비밀번호를 입력하세요: ");
         pw = s.nextLine();
+        System.out.print("=> 비밀번호를 다시 입력하세요: ");
+        pwCheck = s.nextLine();
+
+        while(pwdUnity(pw,pwCheck)) {
+            System.out.println("비밀번호가 일치하지 않습니다. 다시 입력하세요. ");
+            System.out.print("=> 비밀번호를 입력하세요: ");
+            pw = s.nextLine();
+            System.out.print("=> 비밀번호를 다시 입력하세요: ");
+            pwCheck = s.nextLine();
+        }
         return new Login(id, pw);
+    }
+
+    public boolean pwdUnity(String pw1, String pw2){
+        if (!pw1.equals(pw2)){
+            return true;
+        } else{
+            return false;
+        }
     }
 
     public boolean isDuplicated(String id, ArrayList<Login> list){
