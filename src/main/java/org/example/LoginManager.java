@@ -10,6 +10,7 @@ public class LoginManager {
         loginCRUD = new LoginCRUD(s);
     }
 
+    //로그인 한 후 진행되려면 어떻게 시스템이 구성되어야 하는지?
     public int selectMenu(){
         System.out.print("*** 환영합니다 ***\n"
             + "1. 로그인하기\n"
@@ -34,10 +35,10 @@ public class LoginManager {
                 loginCRUD.addMember();
             } /*else if(menu == 3){
 
-            } else if(menu == 4){
-
+            } */else if(menu == 4){
+                loginCRUD.changePassword();
             }
-            */
+
         }
     }
 }
