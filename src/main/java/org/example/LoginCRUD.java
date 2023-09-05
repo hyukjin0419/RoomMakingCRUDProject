@@ -20,10 +20,14 @@ public class LoginCRUD implements ICRUD{
     //회원정보 불러오기 (read)
     @Override
     public Object add() {
-        String id = null;
-        String pw = null;
-        String pwCheck = null;
+        String id = setID();
+        String pw = setPW();
 
+        return new Login(id, pw);
+    }
+
+    public String setID(){
+        String id = null;
         while(true) {
             System.out.print("=> 회원가입할 ID를 입력하세요: ");
             id = s.nextLine();
@@ -33,6 +37,12 @@ public class LoginCRUD implements ICRUD{
                 System.out.println("중복되는 ID입니다. 다른 ID를 입력해주세요.");
         }
 
+        return id;
+    }
+
+    public String setPW(){
+        String pw;
+        String pwCheck;
         while(true) {
             System.out.print("=> 비밀번호를 입력하세요: ");
             pw = s.nextLine();
@@ -41,7 +51,7 @@ public class LoginCRUD implements ICRUD{
             if (pwdUnity(pw,pwCheck)) break;
             System.out.println("비밀번호가 일치하지 않습니다. 다시 입력하세요. ");
         }
-        return new Login(id, pw);
+        return pw;
     }
 
     public boolean pwdUnity(String pw1, String pw2){
@@ -119,6 +129,19 @@ public class LoginCRUD implements ICRUD{
     }
 
     public void changePassword() {
-
+        System.out.println("비밀번호를 변경할 아이디를 입력하세요: ");
+        String id = s.nextLine();
+        String pw = null;
+        String pwCheck = null;
+        for(Login one : list){
+            if (isDuplicated(one.getId(),list)){
+                System.out.println("변경할 비밀번호를 입력하세요: ");
+                pw = s.nextLine();
+                System.out.print("=> 비밀번호를 다시 입력하세요: ");
+                pwCheck = s.nextLine();
+            } else {
+                System.out.println("일치하는 아이디가 없습니다. 다시 시도해주세요. ");
+            }
+        }
     }
 }
