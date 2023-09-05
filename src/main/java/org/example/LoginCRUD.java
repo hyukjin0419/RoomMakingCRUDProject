@@ -36,7 +36,6 @@ public class LoginCRUD implements ICRUD{
             else
                 System.out.println("중복되는 ID입니다. 다른 ID를 입력해주세요.");
         }
-
         return id;
     }
 
@@ -71,10 +70,18 @@ public class LoginCRUD implements ICRUD{
         return false;
     }
 
+    public Login findID(String id, ArrayList<Login> list){
+        for (Login one : list) {
+            if (one.getId().equals(id)) {
+                return one;
+            }
+        }
+        return null;
+    }
+
     public void addMember(){
         Login one = (Login) add();
         list.add(one);
-        saveFile();
         System.out.println("회원가입이 완료되었습니다.");
     }
 
@@ -129,19 +136,12 @@ public class LoginCRUD implements ICRUD{
     }
 
     public void changePassword() {
-        System.out.println("비밀번호를 변경할 아이디를 입력하세요: ");
+        System.out.print("비밀번호를 변경할 아이디를 입력하세요: ");
         String id = s.nextLine();
-        String pw = null;
-        String pwCheck = null;
-        for(Login one : list){
-            if (isDuplicated(one.getId(),list)){
-                System.out.println("변경할 비밀번호를 입력하세요: ");
-                pw = s.nextLine();
-                System.out.print("=> 비밀번호를 다시 입력하세요: ");
-                pwCheck = s.nextLine();
-            } else {
-                System.out.println("일치하는 아이디가 없습니다. 다시 시도해주세요. ");
-            }
-        }
+        Login one = findID(id,list);
+        if (one == null)
+            System.out.println("일치하는 아이디가 없습니다. 다시 시도해주세요. ");
+        else
+            one.setPw(setPW());
     }
 }

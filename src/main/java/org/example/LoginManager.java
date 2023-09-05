@@ -39,6 +39,7 @@ public class LoginManager {
                 loginCRUD.changePassword();
             }
 
+            loginCRUD.saveFile();
         }
     }
 }
