@@ -20,10 +20,37 @@ public class LoginCRUD implements ICRUD{
     //회원정보 불러오기 (read)
     @Override
     public Object add() {
+        String name = setName();
+        String birth = setBirth();
         String id = setID();
         String pw = setPW();
 
-        return new Login(id, pw);
+        return new Login(name, birth, id, pw);
+    }
+
+
+    public String setName(){
+        String name = null;
+        System.out.print("=> 이름을 입력하세요: ");
+        name = s.nextLine();
+
+        return name;
+    }
+    public String setBirth(){
+        String birth = null;
+        System.out.print("=> 생년월일 여섯자리를 입력하세요: ");
+        while(true){
+            birth = s.nextLine();
+            if(isDigitRight(6,birth)){
+                return birth;
+            }
+            System.out.print("=> 입력이 잘못 되었습니다. 생년월일 여섯자리를 입력하세요: ");
+        }
+
+    }
+
+    public boolean isDigitRight(int a, String str){
+        return str.length() == a;
     }
 
     public String setID(){
@@ -32,11 +59,10 @@ public class LoginCRUD implements ICRUD{
             System.out.print("=> 회원가입할 ID를 입력하세요: ");
             id = s.nextLine();
             if(!isDuplicated(id,list))
-                break;
+                return id;
             else
                 System.out.println("중복되는 ID입니다. 다른 ID를 입력해주세요.");
         }
-        return id;
     }
 
     public String setPW(){
@@ -47,10 +73,9 @@ public class LoginCRUD implements ICRUD{
             pw = s.nextLine();
             System.out.print("=> 비밀번호를 다시 입력하세요: ");
             pwCheck = s.nextLine();
-            if (pwdUnity(pw,pwCheck)) break;
+            if (pwdUnity(pw,pwCheck)) return pw;
             System.out.println("비밀번호가 일치하지 않습니다. 다시 입력하세요. ");
         }
-        return pw;
     }
 
     public boolean pwdUnity(String pw1, String pw2){
@@ -111,9 +136,11 @@ public class LoginCRUD implements ICRUD{
                 if(line == null) break;
 
                 String data[] = line.split("\\|");
-                String id = data[0];
-                String pw = data[1];
-                list.add(new Login(id, pw));
+                String name = data[0];
+                String birth = data[1];
+                String id = data[2];
+                String pw = data[3];
+                list.add(new Login(name, birth, id, pw));
                 count++;
             }
             br.close();

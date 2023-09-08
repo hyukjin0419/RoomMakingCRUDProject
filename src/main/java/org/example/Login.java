@@ -1,12 +1,16 @@
 package org.example;
 
 public class Login {
+    private String name;
+    private String birth;
     private String id;
     private String pw;
 
     Login(){}
 
-    public Login(String id, String pw) {
+    public Login(String name, String birth, String id, String pw) {
+        this.name = name;
+        this.birth = birth;
         this.id = id;
         this.pw = pw;
     }
@@ -27,8 +31,23 @@ public class Login {
         this.pw = pw;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
 
     public String toFileString() {
-        return this.id + "|" + this.pw;
+        return this.name + "|" + this.birth + "|" + this.id + "|" + this.pw;
     }
 }
