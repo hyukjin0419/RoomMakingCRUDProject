@@ -95,9 +95,27 @@ public class LoginCRUD implements ICRUD{
         return false;
     }
 
-    public Login findID(String id, ArrayList<Login> list){
+    public Login findID(String id){
         for (Login one : list) {
             if (one.getId().equals(id)) {
+                return one;
+            }
+        }
+        return null;
+    }
+
+    public Login findName(String name){
+        for (Login one : list) {
+            if(one.getName().equals(name)){
+                return one;
+            }
+        }
+        return null;
+    }
+
+    public Login findBirth(String birth){
+        for (Login one : list) {
+            if(one.getBirth().equals(birth)){
                 return one;
             }
         }
@@ -165,10 +183,34 @@ public class LoginCRUD implements ICRUD{
     public void changePassword() {
         System.out.print("비밀번호를 변경할 아이디를 입력하세요: ");
         String id = s.nextLine();
-        Login one = findID(id,list);
+        Login one = findID(id);
         if (one == null)
             System.out.println("일치하는 아이디가 없습니다. 다시 시도해주세요. ");
         else
             one.setPw(setPW());
+    }
+
+    public void findID(){
+        System.out.print("이름을 입력하세요 : ");
+        String name = s.nextLine();
+        Login one = findName(name);
+        if (one == null) {
+            System.out.println("일치하는 사용자 이름이 없습니다. 다시 시도해주세요. ");
+            return;
+        }
+        System.out.print("생년월일을 입력하세요 : ");
+        String birth = s.nextLine();
+        Login two = findBirth(birth);
+        System.out.println(two.getBirth());
+        try {
+            if (two.getBirth().equals(one.getBirth())) {
+                System.out.println("사용자님의 아이디는 " + one.getId() + "입니다.");
+                return;
+            } else {
+                System.out.println("생년월일이 일치하지 없습니다. 다시 시도해주세요. ");
+            }
+        } catch(NullPointerException e){
+            System.out.println("일치하는 생년월일이 없습니다. 다시 시도해주세요. ");
+        }
     }
 }

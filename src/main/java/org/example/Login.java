@@ -50,4 +50,5 @@ public class Login {
     public String toFileString() {
         return this.name + "|" + this.birth + "|" + this.id + "|" + this.pw;
     }
+
 }

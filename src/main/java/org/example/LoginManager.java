@@ -33,9 +33,9 @@ public class LoginManager {
 
             } */else if(menu == 2){
                 loginCRUD.addMember();
-            } /*else if(menu == 3){
-
-            } */else if(menu == 4){
+            } else if(menu == 3){
+                loginCRUD.findID();
+            } else if(menu == 4){
                 loginCRUD.changePassword();
             }
 
