@@ -213,4 +213,23 @@ public class LoginCRUD implements ICRUD{
             System.out.println("일치하는 생년월일이 없습니다. 다시 시도해주세요. ");
         }
     }
+
+    public void logIn() {
+        System.out.print("ID를 입력하세요 : ");
+        String id = s.nextLine();
+        System.out.print("비밀번호를 입력하세요 : ");
+        String pw = s.nextLine();
+
+        Login one = findID(id);
+        try {
+            if (one.getPw().equals(pw)) {
+                System.out.println("로그인 되었습니다.");
+
+            } else {
+                System.out.println("비밀번호와 아이디 정보가 일치하지 않습니다. 다시 시도해주세요. ");
+            }
+        } catch (NullPointerException e){
+            System.out.println("없는 id입니다. 다시 시도해주세요. ");
+        }
+    }
 }
